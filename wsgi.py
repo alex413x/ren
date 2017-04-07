@@ -1,0 +1,23 @@
+"""
+WSGI config for renaissance project.
+
+It exposes the WSGI callable as a module-level variable named ``application``.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/1.9/howto/deployment/wsgi/
+"""
+
+import os, sys, signal, time
+
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "renaissance.settings")
+
+try:
+    application = get_wsgi_application()
+
+except Exception:
+    if 'mod_wsgi' in sys.modules:
+        os.kill(os.getpid(), signal.SIGINT)
+        time.sleep(2.5)
+    raise
